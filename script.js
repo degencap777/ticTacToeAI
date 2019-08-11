@@ -32,4 +32,30 @@ function turnClick(square){
 function turn(squareID, player){
     orginalBoard[squareID] = player;
     document.getElementById(squareID).innerText =  player;
+    let gameWon = checkWin(orginalBoard,player);
+    if (gameWon) gameOver(gameWon);
+}
+
+function checkWin(board, player){
+    let plays = board.reduce((a,e,i) => (e=== player) ? a.concat(i) : a, []);
+    let gameWon = null;
+    for(let [index, win] of WinCombos.entries()){
+
+        if(win.every(elem=> plays.indexOf(elem)>-1)){
+            gameWon =  {index: index, player:player};
+            break;
+        }
+    }
+    return gameWon;
+}
+
+function gameOver(gameWon){
+    for(let index of WinCombos[gameWon.index]){
+        document.getElementById(index).style.backgroundColor =
+        gameWon.player == Player ? "blue" : "red";
+    }
+
+    for(var i =0; i< cells.length;i++){
+        cells[i],removeEventListener("click", turnClick,false);
+    }
 }
