@@ -26,7 +26,11 @@ function startGame(){
 }
 
 function turnClick(square){
-    turn(square.target.id, Player);
+    if(typeof orginalBoard[square.target.id]== "number"){
+        turn(square.target.id, Player);
+        if(!checkTie()) turn(bestSpot(),AI);
+    }
+    
 }
 
 function turn(squareID, player){
@@ -56,6 +60,39 @@ function gameOver(gameWon){
     }
 
     for(var i =0; i< cells.length;i++){
-        cells[i],removeEventListener("click", turnClick,false);
+        cells[i].removeEventListener("click", turnClick,false);
     }
+
+    declarewinner(gameWon.player== Player ? "You Win!" : "You  Lose!" );
+    
+}
+
+// basic AI
+
+//function used to change the endgame block depending 
+//on the statement sent to it
+
+function declarewinner(statment){
+    document.querySelector(".endgame").style.display = "block";
+    document.querySelector(".endgame .text").innerText = statment;
+}
+
+function emptylocation(){
+    return orginalBoard.filter(s=> typeof s ==  "number");
+}
+
+function bestSpot(){
+    return emptylocation()[0]; 
+}
+
+function checkTie(){
+    if(emptylocation().length== 0){
+        for (let i = 0; i < cells.length; i++) {
+            cells[i].style.backgroundColor="green";
+            cells[i].removeEventListener("click",turnClick,false);
+        }
+        declarewinner("Tie Game!");
+        return true;
+    }
+    return false;
 }
