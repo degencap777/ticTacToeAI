@@ -1,0 +1,49 @@
+td{
+    border: 2px solid #333;
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+table{
+    border-collapse: collapse;
+    position: absolute;
+    left: 50%;
+    margin-left: -155px;
+    top: 50px;
+}
+
+table tr:first-child td{
+    border-top: 0;
+}
+
+table tr:last-child td{
+    border-bottom: 0;
+}
+
+table tr td:first-child{
+    border-left: 0;
+}
+
+table tr td:last-child{
+    border-right:0; 
+}
+
+div.endgame {
+    display: none;
+    width: 250px;
+    top: 125px;
+    background-color: rgba(51, 103, 224, 0.8);
+    position: absolute;
+    left: 50%;
+    margin-left: -125px;
+    padding-top: 75;
+    padding-bottom: 75px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-size: 2em;
+    
+}
